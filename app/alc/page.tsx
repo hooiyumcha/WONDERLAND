@@ -125,10 +125,10 @@ export default function AlcoholPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0d0a1e] flex items-center justify-center p-4">
+    <main className="min-h-screen flex items-center justify-center p-4 relative" style={{ backgroundImage: "url('/images/143752578-animated-forest-family-pc-pixel-art.gif')", backgroundSize: "cover", backgroundPosition: "center" }}><div className="fixed inset-0 bg-black/50 z-0" />
       <StarField />
-      <div className="w-full max-w-md space-y-6 relative z-10">
-        <h1 className="text-center text-2xl font-bold text-[#fbbf24] tracking-wider">
+      <div className="w-full max-w-md space-y-6 relative z-20">
+        <h1 className="text-center text-2xl font-bold text-white tracking-wider">
           BRING A BOTTLE
         </h1>
 

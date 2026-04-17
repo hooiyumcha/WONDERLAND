@@ -16,7 +16,7 @@ const PARTY_DETAILS = {
   mapLink: "https://maps.google.com/?q=1524+Garden+Street+Santa+Barbara+CA",
 };
 
-type Stage = "intro" | "details" | "notes" | "plusone" | "logistics" | "ready";
+type Stage = "intro" | "details" | "plusone" | "logistics" | "ready";
 
 export default function DetailsPage() {
   const router = useRouter();
@@ -68,7 +68,6 @@ export default function DetailsPage() {
     const stages: Stage[] = [
       "intro",
       "details",
-      "notes",
       "plusone",
       "logistics",
       "ready",
@@ -135,49 +134,35 @@ export default function DetailsPage() {
                     href={PARTY_DETAILS.mapLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[#a78bfa] hover:underline"
+                    className="flex items-center gap-2 text-[#a78bfa] hover:underline mb-3"
                   >
                     <span>📍</span>
                     <span>
                       {PARTY_DETAILS.location}, {PARTY_DETAILS.city}
                     </span>
                   </a>
+                  <div className="border-t border-[#d4d4d4] pt-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span>🍾</span>
+                      <span>
+                        Bringing something to drink would be appreciated!
+                      </span>
+                    </div>
+                    <a
+                      href="/alc"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 pokemon-btn pokemon-btn-primary w-full mt-2"
+                    >
+                      SIGN UP TO BRING A DRINK ↗
+                    </a>
+                  </div>
                 </div>
                 <button
                   onClick={nextStage}
                   className="pokemon-btn pokemon-btn-primary w-full"
                 >
                   GOT IT!
-                </button>
-              </div>
-            )}
-          </>
-        )}
-
-        {stage === "notes" && (
-          <>
-            <TypewriterText
-              text="A few things to keep in mind..."
-              speed={35}
-              onComplete={advanceText}
-            />
-            {textIndex >= 1 && (
-              <div className="mt-4 space-y-3">
-                <div className="pokemon-dialog p-3 text-[10px] space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span>🍾</span>
-                    <span>Bringing something to drink would be appreciated!</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span>🎵</span>
-                    <span>After party TBD!</span>
-                  </div>
-                </div>
-                <button
-                  onClick={nextStage}
-                  className="pokemon-btn pokemon-btn-primary w-full"
-                >
-                  SOUNDS FUN!
                 </button>
               </div>
             )}
@@ -260,7 +245,7 @@ export default function DetailsPage() {
                     )}
 
                     <div className="bg-[#ef4444]/20 p-2 rounded text-[9px] text-[#ef4444]">
-                      ⚠️ This party is NOT open invite! Check with me first!
+                      ⚠️ This party is NOT open invite! Check with us first!
                     </div>
                   </div>
                 )}

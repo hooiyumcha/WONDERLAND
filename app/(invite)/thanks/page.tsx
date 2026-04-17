@@ -166,9 +166,17 @@ export default function ThanksPage() {
 
       {textIndex >= 1 && (
         <div className="space-y-2">
+          <a
+            href="/alc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pokemon-btn pokemon-btn-primary w-full flex items-center justify-center gap-2"
+          >
+            SIGN UP TO BRING A BOTTLE ↗
+          </a>
           <button
             onClick={() => router.push("/rsvp")}
-            className="pokemon-btn pokemon-btn-primary w-full"
+            className="pokemon-btn w-full"
           >
             EDIT RESPONSE
           </button>

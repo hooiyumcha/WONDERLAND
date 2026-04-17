@@ -78,7 +78,7 @@ export default function VerifyPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-center text-2xl font-bold text-[#fbbf24] tracking-wider">
+      <h1 className="text-center text-2xl font-bold text-white tracking-wider">
         WONDERLAND
       </h1>
 

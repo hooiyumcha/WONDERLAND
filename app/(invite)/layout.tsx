@@ -6,128 +6,78 @@ export default function InviteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d0a1e]">
-      {/* Floating particle background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="min-h-screen flex flex-col">
+      {/* GIF background */}
+      <div className="fixed inset-0 z-0" style={{ backgroundImage: "url('/images/143752578-animated-forest-family-pc-pixel-art.gif')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }} />
+      {/* Dark overlay so content stays readable */}
+      <div className="fixed inset-0 z-0 bg-black/50" />
+
+      <div className="fixed inset-0 overflow-hidden pointer-events-none select-none z-10">
         <style jsx>{`
           @keyframes scroll-stars {
-            0% {
-              transform: translateY(0);
-            }
-            100% {
-              transform: translateY(100vh);
-            }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
           }
         `}</style>
 
-        {/* Layer 1 - Slow purple sparkles */}
-        <div
-          className="absolute inset-0"
-          style={{ animation: "scroll-stars 60s linear infinite" }}
-        >
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={`slow-${i}`}
-              className="absolute w-[2px] h-[2px] bg-[#c084fc] rounded-full opacity-40"
-              style={{
-                left: `${(i * 37) % 100}%`,
-                top: `${(i * 53) % 200 - 100}%`,
-              }}
-            />
+        {/* ♠ Spades — white, slow */}
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 60s linear infinite" }}>
+          {[...Array(15)].map((_, i) => (
+            <span key={`spade-${i}`} className="absolute text-[10px] text-white opacity-40"
+              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 200 - 100}%` }}>♠</span>
           ))}
         </div>
-        <div
-          className="absolute inset-0"
-          style={{
-            animation: "scroll-stars 60s linear infinite",
-            transform: "translateY(-100vh)",
-          }}
-        >
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={`slow2-${i}`}
-              className="absolute w-[2px] h-[2px] bg-[#c084fc] rounded-full opacity-40"
-              style={{
-                left: `${(i * 37) % 100}%`,
-                top: `${(i * 53) % 200 - 100}%`,
-              }}
-            />
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 60s linear infinite", transform: "translateY(-100vh)" }}>
+          {[...Array(15)].map((_, i) => (
+            <span key={`spade2-${i}`} className="absolute text-[10px] text-white opacity-40"
+              style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 200 - 100}%` }}>♠</span>
           ))}
         </div>
 
-        {/* Layer 2 - Medium gold sparkles */}
-        <div
-          className="absolute inset-0"
-          style={{ animation: "scroll-stars 40s linear infinite" }}
-        >
-          {[...Array(25)].map((_, i) => (
-            <div
-              key={`med-${i}`}
-              className="absolute w-[2px] h-[2px] bg-[#fbbf24] rounded-full opacity-50"
-              style={{
-                left: `${(i * 43) % 100}%`,
-                top: `${(i * 67) % 200 - 100}%`,
-              }}
-            />
+        {/* ♥ Hearts — red, medium */}
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 45s linear infinite" }}>
+          {[...Array(12)].map((_, i) => (
+            <span key={`heart-${i}`} className="absolute text-[10px] text-[#ef4444] opacity-60"
+              style={{ left: `${(i * 43) % 100}%`, top: `${(i * 71) % 200 - 100}%` }}>♥</span>
           ))}
         </div>
-        <div
-          className="absolute inset-0"
-          style={{
-            animation: "scroll-stars 40s linear infinite",
-            transform: "translateY(-100vh)",
-          }}
-        >
-          {[...Array(25)].map((_, i) => (
-            <div
-              key={`med2-${i}`}
-              className="absolute w-[2px] h-[2px] bg-[#fbbf24] rounded-full opacity-50"
-              style={{
-                left: `${(i * 43) % 100}%`,
-                top: `${(i * 67) % 200 - 100}%`,
-              }}
-            />
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 45s linear infinite", transform: "translateY(-100vh)" }}>
+          {[...Array(12)].map((_, i) => (
+            <span key={`heart2-${i}`} className="absolute text-[10px] text-[#ef4444] opacity-60"
+              style={{ left: `${(i * 43) % 100}%`, top: `${(i * 71) % 200 - 100}%` }}>♥</span>
           ))}
         </div>
 
-        {/* Layer 3 - Fast white sparkles */}
-        <div
-          className="absolute inset-0"
-          style={{ animation: "scroll-stars 25s linear infinite" }}
-        >
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={`fast-${i}`}
-              className="absolute w-[3px] h-[3px] bg-white rounded-full opacity-70"
-              style={{
-                left: `${(i * 61) % 100}%`,
-                top: `${(i * 79) % 200 - 100}%`,
-              }}
-            />
+        {/* ♦ Diamonds — light red, medium-fast */}
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 30s linear infinite" }}>
+          {[...Array(12)].map((_, i) => (
+            <span key={`diamond-${i}`} className="absolute text-[10px] text-[#fca5a5] opacity-50"
+              style={{ left: `${(i * 61) % 100}%`, top: `${(i * 47) % 200 - 100}%` }}>♦</span>
           ))}
         </div>
-        <div
-          className="absolute inset-0"
-          style={{
-            animation: "scroll-stars 25s linear infinite",
-            transform: "translateY(-100vh)",
-          }}
-        >
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={`fast2-${i}`}
-              className="absolute w-[3px] h-[3px] bg-white rounded-full opacity-70"
-              style={{
-                left: `${(i * 61) % 100}%`,
-                top: `${(i * 79) % 200 - 100}%`,
-              }}
-            />
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 30s linear infinite", transform: "translateY(-100vh)" }}>
+          {[...Array(12)].map((_, i) => (
+            <span key={`diamond2-${i}`} className="absolute text-[10px] text-[#fca5a5] opacity-50"
+              style={{ left: `${(i * 61) % 100}%`, top: `${(i * 47) % 200 - 100}%` }}>♦</span>
+          ))}
+        </div>
+
+        {/* ♣ Clubs — lavender, fast */}
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 20s linear infinite" }}>
+          {[...Array(10)].map((_, i) => (
+            <span key={`club-${i}`} className="absolute text-[10px] text-[#c084fc] opacity-40"
+              style={{ left: `${(i * 79) % 100}%`, top: `${(i * 59) % 200 - 100}%` }}>♣</span>
+          ))}
+        </div>
+        <div className="absolute inset-0" style={{ animation: "scroll-stars 20s linear infinite", transform: "translateY(-100vh)" }}>
+          {[...Array(10)].map((_, i) => (
+            <span key={`club2-${i}`} className="absolute text-[10px] text-[#c084fc] opacity-40"
+              style={{ left: `${(i * 79) % 100}%`, top: `${(i * 59) % 200 - 100}%` }}>♣</span>
           ))}
         </div>
       </div>
 
-      {/* Main content */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 relative z-10">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 relative z-20">
         <div className="w-full max-w-md">
           {children}
         </div>
