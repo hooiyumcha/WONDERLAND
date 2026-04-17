@@ -1,0 +1,262 @@
+"use client";
+
+import DialogBox from "@/components/DialogBox";
+import StarField from "@/components/StarField";
+import TypewriterText from "@/components/TypewriterText";
+import { createClient } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+interface Signup {
+  id: string;
+  name: string;
+  item: string;
+}
+
+export default function AlcoholPage() {
+  const [signups, setSignups] = useState<Signup[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [item, setItem] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
+
+  const fetchSignups = async () => {
+    try {
+      const res = await fetch("/api/alcohol");
+      const data = await res.json();
+      if (data.success) {
+        setSignups(data.signups);
+      }
+    } catch (error) {
+      console.error("Failed to fetch signups:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    document.title = "BYOB Signup | WONDERLAND";
+    fetchSignups();
+
+    const channel = supabase
+      .channel("alcohol_signups")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "alcohol_signups" },
+        () => fetchSignups()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !item.trim()) return;
+
+    setSubmitting(true);
+    try {
+      if (editingId) {
+        const res = await fetch(`/api/alcohol/${editingId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, item }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setSignups((prev) =>
+            prev.map((s) => (s.id === editingId ? data.signup : s))
+          );
+        }
+      } else {
+        const res = await fetch("/api/alcohol", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, item }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setSignups((prev) => [...prev, data.signup]);
+        }
+      }
+      resetForm();
+    } catch (error) {
+      console.error("Failed to submit:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleEdit = (signup: Signup) => {
+    setEditingId(signup.id);
+    setName(signup.name);
+    setItem(signup.item);
+    setShowForm(true);
+  };
+
+  const handleDeleteConfirm = async (id: string) => {
+    try {
+      const res = await fetch(`/api/alcohol/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) {
+        setSignups((prev) => prev.filter((s) => s.id !== id));
+      }
+    } catch (error) {
+      console.error("Failed to delete:", error);
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const resetForm = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setName("");
+    setItem("");
+  };
+
+  return (
+    <main className="min-h-screen bg-[#0d0a1e] flex items-center justify-center p-4">
+      <StarField />
+      <div className="w-full max-w-md space-y-6 relative z-10">
+        <h1 className="text-center text-2xl font-bold text-[#fbbf24] tracking-wider">
+          BRING A BOTTLE
+        </h1>
+
+        <DialogBox>
+          <TypewriterText
+            text="Wearing the same outfit as someone else to a party is so embarrassing..."
+            speed={30}
+            onComplete={() => setTimeout(() => setTextIndex(1), 600)}
+          />
+          {textIndex >= 1 && (
+            <div className="mt-2">
+              <TypewriterText
+                text="So is bringing the same bottle..."
+                speed={30}
+                onComplete={() => setTimeout(() => setTextIndex(2), 400)}
+              />
+            </div>
+          )}
+          {textIndex >= 2 && (
+            <div className="mt-2">
+              <TypewriterText
+                text="Sign up for what you're bringing so we don't end up with 5 bottles of Titos!"
+                speed={30}
+                onComplete={() => setTimeout(() => setTextIndex(3), 400)}
+              />
+            </div>
+          )}
+
+          {textIndex < 3 ? null : loading ? (
+            <p className="text-center text-sm mt-4">Loading...</p>
+          ) : (
+            <div className="mt-4">
+              {signups.length === 0 ? (
+                <p className="text-center text-sm text-gray-500 mb-4">
+                  No signups yet. Be the first!
+                </p>
+              ) : (
+                <div className="space-y-2 mb-4 max-h-64 overflow-y-auto">
+                  {signups.map((signup) => (
+                    <div
+                      key={signup.id}
+                      className="flex items-center justify-between bg-[#f8f0e3] border-2 border-[#5a5a5a] rounded px-3 py-2"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <span className="font-bold">{signup.name}</span>
+                        <span className="mx-2">-</span>
+                        <span className="text-[#5a5a5a]">{signup.item}</span>
+                      </div>
+                      <div className="flex gap-1 ml-2">
+                        {deletingId === signup.id ? (
+                          <>
+                            <button
+                              onClick={() => handleDeleteConfirm(signup.id)}
+                              className="text-xs px-2 py-1 bg-[#e55a5a] text-white rounded hover:bg-[#d54a4a]"
+                            >
+                              Yes
+                            </button>
+                            <button
+                              onClick={() => setDeletingId(null)}
+                              className="text-xs px-2 py-1 bg-[#5a5a5a] text-white rounded hover:bg-[#4a4a4a]"
+                            >
+                              No
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => handleEdit(signup)}
+                              className="text-xs px-2 py-1 bg-[#a78bfa] text-white rounded hover:bg-[#9061f9]"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => setDeletingId(signup.id)}
+                              className="text-xs px-2 py-1 bg-[#e55a5a] text-white rounded hover:bg-[#d54a4a]"
+                            >
+                              X
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {showForm ? (
+                <div className="space-y-3">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    className="pokemon-input w-full"
+                    autoFocus
+                  />
+                  <input
+                    type="text"
+                    value={item}
+                    onChange={(e) => setItem(e.target.value)}
+                    placeholder="What you're bringing"
+                    className="pokemon-input w-full"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleSubmit}
+                      disabled={!name.trim() || !item.trim() || submitting}
+                      className="pokemon-btn pokemon-btn-primary flex-1"
+                    >
+                      {submitting ? "..." : editingId ? "UPDATE" : "ADD"}
+                    </button>
+                    <button onClick={resetForm} className="pokemon-btn flex-1">
+                      CANCEL
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="pokemon-btn pokemon-btn-primary w-full flex items-center justify-center gap-2"
+                >
+                  <span className="text-lg">+</span> ADD ITEM
+                </button>
+              )}
+            </div>
+          )}
+        </DialogBox>
+      </div>
+    </main>
+  );
+}
