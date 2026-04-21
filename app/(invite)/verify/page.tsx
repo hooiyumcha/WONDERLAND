@@ -53,9 +53,7 @@ export default function VerifyPage() {
       );
       const lookupData = await lookupRes.json();
 
-      if (lookupData.invitee) {
-        setInvitee(lookupData.invitee);
-      }
+      setInvitee(lookupData.invitee ?? null);
 
       if (lookupData.hasExistingRsvp && lookupData.existingRsvp) {
         restoreFromDb({

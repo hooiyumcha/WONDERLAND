@@ -15,22 +15,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // For development without Supabase
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      console.log(`[DEV MODE] Looking up invitee for ${phone}`);
-      // Return a mock invitee for testing
-      return NextResponse.json({
-        success: true,
-        invitee: {
-          actual_name: "Test User",
-          phone: phone,
-          greeting_nickname: "Bestie",
-        },
-        hasExistingRsvp: false,
-        birthdayPrompted: false,
-      });
-    }
-
     const invitee = await getInviteeByPhone(phone);
 
     if (invitee) {
