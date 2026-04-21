@@ -1,11 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-// Types for database
 export interface Invitee {
   phone: string;
   actual_name: string;
@@ -21,34 +15,47 @@ export interface Invitee {
   updated_at: string;
 }
 
-// Normalize phone number for consistent lookups
+let _client: SupabaseClient | null = null;
+
+function getClient(): SupabaseClient {
+  if (!_client) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) throw new Error("Missing Supabase env vars");
+    _client = createClient(url, key);
+  }
+  return _client;
+}
+
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_, prop) {
+    return getClient()[prop as keyof SupabaseClient];
+  },
+});
+
 function normalizePhone(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
 
-// Look up an invitee by phone number
 export async function getInviteeByPhone(phone: string): Promise<Invitee | null> {
   const normalizedPhone = normalizePhone(phone);
 
-  const { data, error } = await supabase
+  const { data, error } = await getClient()
     .from("invitees")
     .select("*")
     .eq("phone", normalizedPhone)
     .single();
 
   if (error || !data) {
-    // Also try with +1 prefix if not found
     if (!normalizedPhone.startsWith("+")) {
       const withPrefix = `+1${normalizedPhone}`;
-      const { data: data2, error: error2 } = await supabase
+      const { data: data2, error: error2 } = await getClient()
         .from("invitees")
         .select("*")
         .eq("phone", withPrefix)
         .single();
 
-      if (!error2 && data2) {
-        return data2 as Invitee;
-      }
+      if (!error2 && data2) return data2 as Invitee;
     }
     return null;
   }
@@ -56,21 +63,14 @@ export async function getInviteeByPhone(phone: string): Promise<Invitee | null> 
   return data as Invitee;
 }
 
-// Create or update an invitee's RSVP
 export async function upsertInvitee(invitee: Partial<Invitee> & { phone: string }): Promise<Invitee | null> {
   const normalizedPhone = normalizePhone(invitee.phone);
 
-  const { data, error } = await supabase
+  const { data, error } = await getClient()
     .from("invitees")
     .upsert(
-      {
-        ...invitee,
-        phone: normalizedPhone,
-        updated_at: new Date().toISOString(),
-      },
-      {
-        onConflict: "phone",
-      }
+      { ...invitee, phone: normalizedPhone, updated_at: new Date().toISOString() },
+      { onConflict: "phone" }
     )
     .select()
     .single();
@@ -83,17 +83,14 @@ export async function upsertInvitee(invitee: Partial<Invitee> & { phone: string 
   return data as Invitee;
 }
 
-// Check if user has already submitted RSVP
 export async function hasSubmittedRsvp(phone: string): Promise<boolean> {
   const invitee = await getInviteeByPhone(phone);
   return invitee?.rsvp_status !== null;
 }
 
-// Mark that user has been prompted for birthday (even if they skipped)
 export async function markBirthdayPrompted(phone: string): Promise<void> {
   const normalizedPhone = normalizePhone(phone);
-
-  await supabase
+  await getClient()
     .from("invitees")
     .update({ birthday_prompted: true, updated_at: new Date().toISOString() })
     .eq("phone", normalizedPhone);
