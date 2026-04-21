@@ -29,6 +29,23 @@ CREATE POLICY "Allow all operations" ON invitees
   USING (true)
   WITH CHECK (true);
 
+-- Create the alcohol signups table
+CREATE TABLE IF NOT EXISTS alcohol_signups (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  item TEXT NOT NULL,
+  deleted_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE alcohol_signups ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow all operations" ON alcohol_signups
+  FOR ALL
+  USING (true)
+  WITH CHECK (true);
+
 -- Optional: Pre-populate with known invitees (their names/nicknames)
 -- Uncomment and modify as needed:
 -- INSERT INTO invitees (phone, actual_name, greeting_nickname) VALUES

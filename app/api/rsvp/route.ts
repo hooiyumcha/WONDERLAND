@@ -23,15 +23,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // For development without Supabase
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      console.log("[DEV MODE] Would save RSVP:", data);
-      return NextResponse.json({
-        success: true,
-        message: "Development mode - RSVP logged to console",
-      });
-    }
-
     const result = await upsertInvitee({
       phone: data.phone,
       actual_name: data.actual_name,
@@ -76,15 +67,6 @@ export async function GET(request: Request) {
         { success: false, error: "Phone number is required" },
         { status: 400 }
       );
-    }
-
-    // For development without Supabase
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-      console.log(`[DEV MODE] Getting RSVP for ${phone}`);
-      return NextResponse.json({
-        success: true,
-        rsvp: null,
-      });
     }
 
     const invitee = await getInviteeByPhone(phone);
