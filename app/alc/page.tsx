@@ -6,11 +6,6 @@ import TypewriterText from "@/components/TypewriterText";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 interface Signup {
   id: string;
   name: string;
@@ -46,7 +41,12 @@ export default function AlcoholPage() {
     document.title = "BYOB Signup | WONDERLAND";
     fetchSignups();
 
-    const channel = supabase
+    const client = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    const channel = client
       .channel("alcohol_signups")
       .on(
         "postgres_changes",
@@ -56,7 +56,7 @@ export default function AlcoholPage() {
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      client.removeChannel(channel);
     };
   }, []);
 
