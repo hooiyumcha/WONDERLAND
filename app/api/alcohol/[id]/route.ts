@@ -3,10 +3,12 @@ import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+function db() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
 
 export async function PUT(
   request: Request,
@@ -23,7 +25,7 @@ export async function PUT(
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await db()
       .from("alcohol_signups")
       .update({ name, item, updated_at: new Date().toISOString() })
       .eq("id", id)
@@ -43,14 +45,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
 
-    // Soft delete - set deleted_at timestamp instead of actually deleting
-    const { error } = await supabase
+    const { error } = await db()
       .from("alcohol_signups")
       .update({ deleted_at: new Date().toISOString() })
       .eq("id", id);
