@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const PARTY_DETAILS = {
   title: "WONDERLAND",
-  date: "Friday, April 25th, 2026",
+  date: "Saturday, April 25th, 2026",
   time: "8:00 PM - Late",
   location: "1524 Garden Street",
   city: "Santa Barbara, CA",
@@ -86,20 +86,11 @@ export default function DetailsPage() {
         {stage === "intro" && (
           <>
             <TypewriterText
-              text="Excellent! You've made it through!"
+              text="Now let me tell you about this peculiar gathering..."
               speed={35}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
-              <div className="mt-4">
-                <TypewriterText
-                  text="Now let me tell you about this peculiar gathering..."
-                  speed={35}
-                  onComplete={advanceText}
-                />
-              </div>
-            )}
-            {textIndex >= 2 && (
               <div className="mt-4">
                 <button
                   onClick={nextStage}
@@ -142,6 +133,10 @@ export default function DetailsPage() {
                     </span>
                   </a>
                   <div className="border-t border-[#d4d4d4] pt-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span>🎨</span>
+                      <span>Dress code: <span className="font-bold">BLACK, WHITE & RED</span></span>
+                    </div>
                     <div className="flex items-center gap-2">
                       <span>🍾</span>
                       <span>
@@ -302,7 +297,7 @@ export default function DetailsPage() {
                 </div>
 
                 <div className="pokemon-dialog p-3 space-y-2">
-                  <p className="text-[10px]">Anything else I should know?</p>
+                  <p className="text-[10px]">Anything else we should know?</p>
                   <textarea
                     value={additionalNotes}
                     onChange={(e) => setAdditionalNotes(e.target.value)}

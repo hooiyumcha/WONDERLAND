@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const PARTY_DETAILS = {
-  date: "Friday, April 25th, 2026",
+  date: "Saturday, April 25th, 2026",
   time: "8:00 PM - Late",
   location: "1524 Garden Street",
   city: "Santa Barbara, CA",
@@ -115,7 +115,9 @@ export default function ThanksPage() {
 
             <div className="flex justify-between items-center border-b border-[#2d1b5e] pb-2">
               <span className="text-[#9b89cc]">OVERNIGHT:</span>
-              <span className={needsOvernight ? "text-[#34d399]" : "text-[#9b89cc]"}>
+              <span
+                className={needsOvernight ? "text-[#34d399]" : "text-[#9b89cc]"}
+              >
                 {needsOvernight ? "YES" : "NO"}
               </span>
             </div>
@@ -158,7 +160,9 @@ export default function ThanksPage() {
               className="flex items-center gap-2 text-[#a78bfa] hover:underline"
             >
               <span>📍</span>
-              <span>{PARTY_DETAILS.location}, {PARTY_DETAILS.city}</span>
+              <span>
+                {PARTY_DETAILS.location}, {PARTY_DETAILS.city}
+              </span>
             </a>
           </div>
         </div>
@@ -180,7 +184,13 @@ export default function ThanksPage() {
           >
             EDIT RESPONSE
           </button>
-          <button onClick={() => { reset(); router.push("/verify"); }} className="pokemon-btn w-full">
+          <button
+            onClick={() => {
+              reset();
+              router.push("/verify");
+            }}
+            className="pokemon-btn w-full"
+          >
             START OVER
           </button>
         </div>
