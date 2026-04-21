@@ -1,4 +1,9 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export interface Invitee {
   phone: string;
@@ -15,24 +20,6 @@ export interface Invitee {
   updated_at: string;
 }
 
-let _client: SupabaseClient | null = null;
-
-function getClient(): SupabaseClient {
-  if (!_client) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (!url || !key) throw new Error("Missing Supabase env vars");
-    _client = createClient(url, key);
-  }
-  return _client;
-}
-
-export const supabase = new Proxy({} as SupabaseClient, {
-  get(_, prop) {
-    return getClient()[prop as keyof SupabaseClient];
-  },
-});
-
 function normalizePhone(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
@@ -40,7 +27,7 @@ function normalizePhone(phone: string): string {
 export async function getInviteeByPhone(phone: string): Promise<Invitee | null> {
   const normalizedPhone = normalizePhone(phone);
 
-  const { data, error } = await getClient()
+  const { data, error } = await supabase
     .from("invitees")
     .select("*")
     .eq("phone", normalizedPhone)
@@ -49,7 +36,7 @@ export async function getInviteeByPhone(phone: string): Promise<Invitee | null> 
   if (error || !data) {
     if (!normalizedPhone.startsWith("+")) {
       const withPrefix = `+1${normalizedPhone}`;
-      const { data: data2, error: error2 } = await getClient()
+      const { data: data2, error: error2 } = await supabase
         .from("invitees")
         .select("*")
         .eq("phone", withPrefix)
@@ -66,7 +53,7 @@ export async function getInviteeByPhone(phone: string): Promise<Invitee | null> 
 export async function upsertInvitee(invitee: Partial<Invitee> & { phone: string }): Promise<Invitee | null> {
   const normalizedPhone = normalizePhone(invitee.phone);
 
-  const { data, error } = await getClient()
+  const { data, error } = await supabase
     .from("invitees")
     .upsert(
       { ...invitee, phone: normalizedPhone, updated_at: new Date().toISOString() },
@@ -90,7 +77,7 @@ export async function hasSubmittedRsvp(phone: string): Promise<boolean> {
 
 export async function markBirthdayPrompted(phone: string): Promise<void> {
   const normalizedPhone = normalizePhone(phone);
-  await getClient()
+  await supabase
     .from("invitees")
     .update({ birthday_prompted: true, updated_at: new Date().toISOString() })
     .eq("phone", normalizedPhone);

@@ -3,12 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 
-function db() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-}
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export async function PUT(
   request: Request,
@@ -25,7 +23,7 @@ export async function PUT(
       );
     }
 
-    const { data, error } = await db()
+    const { data, error } = await supabase
       .from("alcohol_signups")
       .update({ name, item, updated_at: new Date().toISOString() })
       .eq("id", id)
@@ -51,7 +49,7 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    const { error } = await db()
+    const { error } = await supabase
       .from("alcohol_signups")
       .update({ deleted_at: new Date().toISOString() })
       .eq("id", id);
