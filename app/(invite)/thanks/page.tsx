@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const PARTY_DETAILS = {
-  date: "Saturday, April 25th, 2026",
+  date: "Friday, May 1st, 2026",
   time: "8:00 PM - Late",
   location: "1524 Garden Street",
   city: "Santa Barbara, CA",
@@ -47,7 +47,7 @@ export default function ThanksPage() {
           particleCount: 150,
           spread: 100,
           origin: { y: 0.6 },
-          colors: ["#a78bfa", "#fbbf24", "#34d399", "#ffffff"],
+          colors: ["#f97316", "#fbbf24", "#dc2626", "#ffffff"],
         });
       }, 300);
     }
@@ -57,18 +57,18 @@ export default function ThanksPage() {
     setTextIndex((prev) => prev + 1);
   }, []);
 
-  const displayName = invitee?.actual_name || guestName || "Friend";
+  const displayName = invitee?.actual_name || guestName || "Rider";
 
   if (!isVerified || !rsvpStatus) return null;
 
   const getThankYouText = () => {
     switch (rsvpStatus) {
       case "yes":
-        return `Wonderful, ${displayName}! Your invitation is confirmed! We'll see you down the rabbit hole!`;
+        return `Hell yeah, ${displayName}! You're in! See you on the road!`;
       case "no":
-        return `We understand, ${displayName}. Thank you for letting us know. Perhaps another adventure awaits!`;
+        return `We'll miss you, ${displayName}. Safe travels wherever the road takes you!`;
       case "maybe":
-        return `Noted, ${displayName}! Take your time. WONDERLAND will await your final answer!`;
+        return `Noted, ${displayName}! Take your time. The road will wait!`;
       default:
         return "";
     }
@@ -86,11 +86,11 @@ export default function ThanksPage() {
 
       {textIndex >= 1 && (
         <div className="pokemon-dialog p-4 space-y-3">
-          <p className="text-[10px] text-center mb-3">WONDERLAND LOG:</p>
+          <p className="text-[10px] text-center mb-3">MOTO LOG:</p>
 
           <div className="space-y-2 text-[10px]">
-            <div className="flex justify-between items-center border-b border-[#2d1b5e] pb-2">
-              <span className="text-[#9b89cc]">RSVP:</span>
+            <div className="flex justify-between items-center border-b border-[#333333] pb-2">
+              <span className="text-[#9ca3af]">RSVP:</span>
               <span
                 className={
                   rsvpStatus === "yes"
@@ -107,32 +107,32 @@ export default function ThanksPage() {
             </div>
 
             {plusOne && (
-              <div className="flex justify-between items-center border-b border-[#2d1b5e] pb-2">
-                <span className="text-[#9b89cc]">COMPANION:</span>
-                <span className="text-[#a78bfa]">{plusOneName || "YES"}</span>
+              <div className="flex justify-between items-center border-b border-[#333333] pb-2">
+                <span className="text-[#9ca3af]">RIDER:</span>
+                <span className="text-[#f97316]">{plusOneName || "YES"}</span>
               </div>
             )}
 
-            <div className="flex justify-between items-center border-b border-[#2d1b5e] pb-2">
-              <span className="text-[#9b89cc]">OVERNIGHT:</span>
+            <div className="flex justify-between items-center border-b border-[#333333] pb-2">
+              <span className="text-[#9ca3af]">OVERNIGHT:</span>
               <span
-                className={needsOvernight ? "text-[#34d399]" : "text-[#9b89cc]"}
+                className={needsOvernight ? "text-[#34d399]" : "text-[#9ca3af]"}
               >
                 {needsOvernight ? "YES" : "NO"}
               </span>
             </div>
 
             {additionalNotes && (
-              <div className="border-b border-[#2d1b5e] pb-2">
-                <span className="text-[#9b89cc]">NOTES:</span>
-                <p className="text-[#a78bfa] mt-1">{additionalNotes}</p>
+              <div className="border-b border-[#333333] pb-2">
+                <span className="text-[#9ca3af]">NOTES:</span>
+                <p className="text-[#f97316] mt-1">{additionalNotes}</p>
               </div>
             )}
 
             {submittedAt && (
               <div className="flex justify-between items-center">
-                <span className="text-[#9b89cc]">SAVED:</span>
-                <span className="text-[#9b89cc]">
+                <span className="text-[#9ca3af]">SAVED:</span>
+                <span className="text-[#9ca3af]">
                   {new Date(submittedAt).toLocaleDateString()}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function ThanksPage() {
 
       {textIndex >= 1 && (
         <div className="pokemon-dialog p-4 space-y-3">
-          <p className="text-[10px] text-center mb-3">THE GATHERING:</p>
+          <p className="text-[10px] text-center mb-3">THE RIDE:</p>
           <div className="space-y-2 text-[10px]">
             <div className="flex items-center gap-2">
               <span>📅</span>
@@ -157,7 +157,7 @@ export default function ThanksPage() {
               href={PARTY_DETAILS.mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-[#a78bfa] hover:underline"
+              className="flex items-center gap-2 text-[#f97316] hover:underline"
             >
               <span>📍</span>
               <span>
@@ -197,8 +197,8 @@ export default function ThanksPage() {
       )}
 
       {textIndex >= 1 && (
-        <p className="text-[8px] text-center text-[#9b89cc]">
-          See you down the rabbit hole 🐇
+        <p className="text-[8px] text-center text-[#9ca3af]">
+          See you on the road 🏍️
         </p>
       )}
     </div>

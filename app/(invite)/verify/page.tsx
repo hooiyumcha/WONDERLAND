@@ -77,21 +77,21 @@ export default function VerifyPage() {
   return (
     <div className="space-y-6">
       <h1 className="text-center text-2xl font-bold text-white tracking-wider">
-        WONDERLAND
+        MotoGParty
       </h1>
 
       <DialogBox>
         {stage === "intro" && (
           <>
             <TypewriterText
-              text="Curiouser and curiouser... welcome to WONDERLAND!"
+              text="Rev your engines... welcome to MotoGParty!"
               speed={40}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="You've been invited to tumble down the rabbit hole with us!"
+                  text="You've been invited to ride with us!"
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -100,7 +100,7 @@ export default function VerifyPage() {
             {textIndex >= 2 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="But first, I must know who you are..."
+                  text="But first, I need to know who's behind the helmet..."
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -115,7 +115,7 @@ export default function VerifyPage() {
                   }}
                   className="pokemon-btn pokemon-btn-primary w-full"
                 >
-                  LET'S GO!
+                  LET'S RIDE!
                 </button>
               </div>
             )}
@@ -125,7 +125,7 @@ export default function VerifyPage() {
         {stage === "phone" && (
           <>
             <TypewriterText
-              text="What is your phone number?"
+              text="What's your phone number, rider?"
               speed={40}
               onComplete={advanceText}
             />
@@ -153,7 +153,7 @@ export default function VerifyPage() {
         )}
 
         {stage === "checking" && (
-          <TypewriterText text="Searching through the looking glass..." speed={40} />
+          <TypewriterText text="Checking the roster..." speed={40} />
         )}
       </DialogBox>
     </div>

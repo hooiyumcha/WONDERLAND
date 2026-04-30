@@ -9,8 +9,8 @@ const pixelFont = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "You're Invited to WONDERLAND!",
-  description: "A curious invitation awaits you",
+  title: "You're Invited to MotoGParty!",
+  description: "Rev your engines — an invitation awaits you",
 };
 
 export const viewport: Viewport = {

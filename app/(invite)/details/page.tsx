@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const PARTY_DETAILS = {
-  title: "WONDERLAND",
-  date: "Saturday, April 25th, 2026",
+  title: "MotoGParty",
+  date: "Friday, May 1st, 2026",
   time: "8:00 PM - Late",
   location: "1524 Garden Street",
   city: "Santa Barbara, CA",
@@ -86,7 +86,7 @@ export default function DetailsPage() {
         {stage === "intro" && (
           <>
             <TypewriterText
-              text="Now let me tell you about this peculiar gathering..."
+              text="Let me fill you in on this ride..."
               speed={35}
               onComplete={advanceText}
             />
@@ -125,17 +125,17 @@ export default function DetailsPage() {
                     href={PARTY_DETAILS.mapLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[#a78bfa] hover:underline mb-3"
+                    className="flex items-center gap-2 text-[#f97316] hover:underline mb-3"
                   >
                     <span>📍</span>
                     <span>
                       {PARTY_DETAILS.location}, {PARTY_DETAILS.city}
                     </span>
                   </a>
-                  <div className="border-t border-[#d4d4d4] pt-3 space-y-2">
+                  <div className="border-t border-[#333333] pt-3 space-y-2">
                     <div className="flex items-center gap-2">
-                      <span>🎨</span>
-                      <span>Dress code: <span className="font-bold">BLACK, WHITE & RED</span></span>
+                      <span>🏍️</span>
+                      <span>Dress code: <span className="font-bold">LEATHER & DENIM WELCOME</span></span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🍾</span>
@@ -167,7 +167,7 @@ export default function DetailsPage() {
         {stage === "plusone" && (
           <>
             <TypewriterText
-              text="Will any companions be joining you on this adventure?"
+              text="Will any other riders be joining you?"
               speed={35}
               onComplete={advanceText}
             />
@@ -190,7 +190,7 @@ export default function DetailsPage() {
                       plusOne && "pokemon-btn-primary"
                     )}
                   >
-                    + GUESTS
+                    + RIDERS
                   </button>
                 </div>
 
@@ -227,15 +227,15 @@ export default function DetailsPage() {
                           type="text"
                           value={plusOneName}
                           onChange={(e) => setPlusOneName(e.target.value)}
-                          placeholder="Guest name"
+                          placeholder="Rider name"
                           className="pokemon-input w-full"
                         />
                       </div>
                     )}
 
                     {guestCount > 1 && (
-                      <div className="bg-[#a78bfa]/20 p-2 rounded text-[9px]">
-                        Please share the invite link with your guests!
+                      <div className="bg-[#f97316]/20 p-2 rounded text-[9px]">
+                        Please share the invite link with your crew!
                       </div>
                     )}
 
@@ -290,7 +290,7 @@ export default function DetailsPage() {
                     </button>
                   </div>
                   {needsOvernight && (
-                    <div className="bg-[#a78bfa]/20 p-2 rounded text-[9px]">
+                    <div className="bg-[#f97316]/20 p-2 rounded text-[9px]">
                       We'll make sure there's space for you!
                     </div>
                   )}
@@ -327,7 +327,7 @@ export default function DetailsPage() {
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="Will you accept this invitation and tumble into WONDERLAND?"
+                  text="Will you accept this invitation and ride at MotoGParty?"
                   speed={35}
                   onComplete={advanceText}
                 />

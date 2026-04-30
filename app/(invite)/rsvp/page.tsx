@@ -13,7 +13,7 @@ const RSVP_OPTIONS: {
   label: string;
   emoji: string;
 }[] = [
-  { value: "yes", label: "YES!", emoji: "🎉" },
+  { value: "yes", label: "YES!", emoji: "🏍️" },
   { value: "no", label: "NO...", emoji: "😢" },
   { value: "maybe", label: "MAYBE", emoji: "🤔" },
 ];
@@ -58,7 +58,7 @@ export default function RsvpPage() {
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ["#a78bfa", "#fbbf24", "#34d399", "#ffffff"],
+        colors: ["#f97316", "#fbbf24", "#dc2626", "#ffffff"],
       });
     } else if (status === "no") {
       setShowTomatoes(true);
@@ -106,11 +106,11 @@ export default function RsvpPage() {
   const getResponseText = () => {
     switch (selected) {
       case "yes":
-        return "WONDERFUL! We're all mad here, and we simply can't wait for you to arrive!";
+        return "HELL YEAH! The road is calling and we can't wait to ride with you!";
       case "no":
-        return "Oh dear... Most unfortunate. Perhaps another rabbit hole awaits you someday...";
+        return "Bummer... we'll miss you on the road. Maybe next ride!";
       case "maybe":
-        return "Still uncertain? Take your time. WONDERLAND will wait for you!";
+        return "Still deciding? Take your time — the engine's running...";
       default:
         return "";
     }
@@ -153,25 +153,25 @@ export default function RsvpPage() {
           {[0, 1, 2].map((i) => (
             <div key={`bottom-${i}`} className="absolute text-4xl"
               style={{ bottom: "-60px", left: `${20 + i * 30}%`, animation: `peekFromBottom 3s ease-out forwards`, animationDelay: `${i * 0.2}s` }}>
-              🐱
+              🏍️
             </div>
           ))}
           {[0, 1].map((i) => (
             <div key={`top-${i}`} className="absolute text-4xl"
               style={{ top: "-60px", left: `${30 + i * 40}%`, animation: `peekFromTop 3s ease-out forwards`, animationDelay: `${0.1 + i * 0.3}s` }}>
-              🐱
+              🏍️
             </div>
           ))}
           {[0, 1].map((i) => (
             <div key={`left-${i}`} className="absolute text-4xl"
               style={{ left: "-60px", top: `${25 + i * 35}%`, animation: `peekFromLeft 3s ease-out forwards`, animationDelay: `${0.05 + i * 0.35}s` }}>
-              🐱
+              🏍️
             </div>
           ))}
           {[0, 1].map((i) => (
             <div key={`right-${i}`} className="absolute text-4xl"
               style={{ right: "-60px", top: `${20 + i * 40}%`, animation: `peekFromRight 3s ease-out forwards`, animationDelay: `${0.15 + i * 0.25}s` }}>
-              🐱
+              🏍️
             </div>
           ))}
         </div>
@@ -188,7 +188,7 @@ export default function RsvpPage() {
           {[...Array(20)].map((_, i) => (
             <div key={i} className="absolute text-3xl"
               style={{ left: `${(i * 17) % 100}%`, top: "-50px", animation: `fall ${1.5 + (i % 5) * 0.3}s linear forwards`, animationDelay: `${(i % 8) * 0.1}s` }}>
-              🃏
+              🏍️
             </div>
           ))}
         </div>
@@ -199,7 +199,7 @@ export default function RsvpPage() {
           {!showResponse ? (
             <>
               <TypewriterText
-                text="The moment of truth! Will you tumble into WONDERLAND with us?"
+                text="The moment of truth! Will you ride with us at MotoGParty?"
                 speed={35}
                 onComplete={advanceText}
               />
@@ -220,7 +220,7 @@ export default function RsvpPage() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-[8px] text-center text-[#9b89cc]">
+                  <p className="text-[8px] text-center text-[#9ca3af]">
                     (You can change your answer later)
                   </p>
                   <button

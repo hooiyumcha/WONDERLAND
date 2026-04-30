@@ -37,7 +37,7 @@ export default function GreetingPage() {
     invitee?.actual_name ||
     guestName ||
     name ||
-    "Friend";
+    "Rider";
 
   const handleContinue = () => {
     if (stage === "ask_name" && name.trim()) {
@@ -57,7 +57,7 @@ export default function GreetingPage() {
         {stage === "ask_name" && (
           <>
             <TypewriterText
-              text="A curious number indeed! Now, who might you be?"
+              text="Unknown rider detected... what's your name?"
               speed={40}
               onComplete={advanceText}
             />
@@ -86,14 +86,14 @@ export default function GreetingPage() {
         {stage === "confirm" && (
           <>
             <TypewriterText
-              text={`So your name is ${displayName}!`}
+              text={`So you're ${displayName}!`}
               speed={40}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="Welcome to WONDERLAND!"
+                  text="Welcome to MotoGParty!"
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -124,14 +124,14 @@ export default function GreetingPage() {
         {stage === "greeting" && (
           <>
             <TypewriterText
-              text={`Ah, ${displayName}! How delightfully expected!`}
+              text={`${displayName}! Glad you made it to the garage!`}
               speed={40}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="You've been chosen for a most peculiar adventure... a WONDERLAND party!"
+                  text="You've been called to ride at MotoGParty!"
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -143,7 +143,7 @@ export default function GreetingPage() {
                   onClick={() => router.push("/details")}
                   className="pokemon-btn pokemon-btn-primary w-full"
                 >
-                  I'M READY!
+                  LET'S GO!
                 </button>
               </div>
             )}

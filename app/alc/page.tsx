@@ -38,7 +38,7 @@ export default function AlcoholPage() {
   };
 
   useEffect(() => {
-    document.title = "BYOB Signup | WONDERLAND";
+    document.title = "BYOB Signup | MotoGParty";
     fetchSignups();
 
     const client = createClient(
@@ -125,7 +125,8 @@ export default function AlcoholPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4 relative" style={{ backgroundImage: "url('/images/143752578-animated-forest-family-pc-pixel-art.gif')", backgroundSize: "cover", backgroundPosition: "center" }}><div className="fixed inset-0 bg-black/50 z-0" />
+    <main className="min-h-screen flex items-center justify-center p-4 relative" style={{ backgroundImage: "url('/images/moto.gif')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="fixed inset-0 bg-black/60 z-0" />
       <StarField />
       <div className="w-full max-w-md space-y-6 relative z-20">
         <h1 className="text-center text-2xl font-bold text-white tracking-wider">
@@ -134,14 +135,14 @@ export default function AlcoholPage() {
 
         <DialogBox>
           <TypewriterText
-            text="Wearing the same outfit as someone else to a party is so embarrassing..."
+            text="Showing up with the same bottle as someone else..."
             speed={30}
             onComplete={() => setTimeout(() => setTextIndex(1), 600)}
           />
           {textIndex >= 1 && (
             <div className="mt-2">
               <TypewriterText
-                text="So is bringing the same bottle..."
+                text="Is just as bad as showing up on the same bike."
                 speed={30}
                 onComplete={() => setTimeout(() => setTextIndex(2), 400)}
               />
@@ -150,7 +151,7 @@ export default function AlcoholPage() {
           {textIndex >= 2 && (
             <div className="mt-2">
               <TypewriterText
-                text="Sign up for what you're bringing so we don't end up with 5 bottles of Titos!"
+                text="Sign up so we don't end up with 5 bottles of Titos!"
                 speed={30}
                 onComplete={() => setTimeout(() => setTextIndex(3), 400)}
               />
@@ -162,7 +163,7 @@ export default function AlcoholPage() {
           ) : (
             <div className="mt-4">
               {signups.length === 0 ? (
-                <p className="text-center text-sm text-gray-500 mb-4">
+                <p className="text-center text-sm text-[#9ca3af] mb-4">
                   No signups yet. Be the first!
                 </p>
               ) : (
@@ -170,25 +171,25 @@ export default function AlcoholPage() {
                   {signups.map((signup) => (
                     <div
                       key={signup.id}
-                      className="flex items-center justify-between bg-[#f8f0e3] border-2 border-[#5a5a5a] rounded px-3 py-2"
+                      className="flex items-center justify-between bg-[#1e1e1e] border-2 border-[#f97316] rounded px-3 py-2"
                     >
                       <div className="flex-1 min-w-0">
-                        <span className="font-bold">{signup.name}</span>
-                        <span className="mx-2">-</span>
-                        <span className="text-[#5a5a5a]">{signup.item}</span>
+                        <span className="font-bold text-white">{signup.name}</span>
+                        <span className="mx-2 text-[#9ca3af]">-</span>
+                        <span className="text-[#9ca3af]">{signup.item}</span>
                       </div>
                       <div className="flex gap-1 ml-2">
                         {deletingId === signup.id ? (
                           <>
                             <button
                               onClick={() => handleDeleteConfirm(signup.id)}
-                              className="text-xs px-2 py-1 bg-[#e55a5a] text-white rounded hover:bg-[#d54a4a]"
+                              className="text-xs px-2 py-1 bg-[#ef4444] text-white rounded hover:bg-[#dc2626]"
                             >
                               Yes
                             </button>
                             <button
                               onClick={() => setDeletingId(null)}
-                              className="text-xs px-2 py-1 bg-[#5a5a5a] text-white rounded hover:bg-[#4a4a4a]"
+                              className="text-xs px-2 py-1 bg-[#4b5563] text-white rounded hover:bg-[#374151]"
                             >
                               No
                             </button>
@@ -197,13 +198,13 @@ export default function AlcoholPage() {
                           <>
                             <button
                               onClick={() => handleEdit(signup)}
-                              className="text-xs px-2 py-1 bg-[#a78bfa] text-white rounded hover:bg-[#9061f9]"
+                              className="text-xs px-2 py-1 bg-[#f97316] text-black rounded hover:bg-[#ea580c]"
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => setDeletingId(signup.id)}
-                              className="text-xs px-2 py-1 bg-[#e55a5a] text-white rounded hover:bg-[#d54a4a]"
+                              className="text-xs px-2 py-1 bg-[#ef4444] text-white rounded hover:bg-[#dc2626]"
                             >
                               X
                             </button>
