@@ -84,14 +84,14 @@ export default function VerifyPage() {
         {stage === "intro" && (
           <>
             <TypewriterText
-              text="Rev your engines... welcome to MotoGParty!"
+              text="Welcome to MotoGParty!"
               speed={40}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="You've been invited to ride with us!"
+                  text="You've been invited to the party!"
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -100,7 +100,7 @@ export default function VerifyPage() {
             {textIndex >= 2 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="But first, I need to know who's behind the helmet..."
+                  text="But first, I need to know who you are..."
                   speed={40}
                   onComplete={advanceText}
                 />
@@ -115,7 +115,7 @@ export default function VerifyPage() {
                   }}
                   className="pokemon-btn pokemon-btn-primary w-full"
                 >
-                  LET'S RIDE!
+                  LET'S GO!
                 </button>
               </div>
             )}
@@ -125,7 +125,7 @@ export default function VerifyPage() {
         {stage === "phone" && (
           <>
             <TypewriterText
-              text="What's your phone number, rider?"
+              text="What's your phone number?"
               speed={40}
               onComplete={advanceText}
             />
@@ -153,7 +153,7 @@ export default function VerifyPage() {
         )}
 
         {stage === "checking" && (
-          <TypewriterText text="Checking the roster..." speed={40} />
+          <TypewriterText text="Checking the guest list..." speed={40} />
         )}
       </DialogBox>
     </div>

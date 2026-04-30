@@ -86,7 +86,7 @@ export default function DetailsPage() {
         {stage === "intro" && (
           <>
             <TypewriterText
-              text="Let me fill you in on this ride..."
+              text="Here's the details on the party!"
               speed={35}
               onComplete={advanceText}
             />
@@ -132,10 +132,10 @@ export default function DetailsPage() {
                       {PARTY_DETAILS.location}, {PARTY_DETAILS.city}
                     </span>
                   </a>
-                  <div className="border-t border-[#333333] pt-3 space-y-2">
+                  <div className="border-t border-[#d4d4d4] pt-3 space-y-2">
                     <div className="flex items-center gap-2">
                       <span>🏍️</span>
-                      <span>Dress code: <span className="font-bold">LEATHER & DENIM WELCOME</span></span>
+                      <span>Moto-friendly crowd, dress however you want!</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🍾</span>
@@ -167,7 +167,7 @@ export default function DetailsPage() {
         {stage === "plusone" && (
           <>
             <TypewriterText
-              text="Will any other riders be joining you?"
+              text="Will anyone else be joining you?"
               speed={35}
               onComplete={advanceText}
             />
@@ -190,7 +190,7 @@ export default function DetailsPage() {
                       plusOne && "pokemon-btn-primary"
                     )}
                   >
-                    + RIDERS
+                    + GUESTS
                   </button>
                 </div>
 
@@ -227,15 +227,15 @@ export default function DetailsPage() {
                           type="text"
                           value={plusOneName}
                           onChange={(e) => setPlusOneName(e.target.value)}
-                          placeholder="Rider name"
+                          placeholder="Guest name"
                           className="pokemon-input w-full"
                         />
                       </div>
                     )}
 
                     {guestCount > 1 && (
-                      <div className="bg-[#f97316]/20 p-2 rounded text-[9px]">
-                        Please share the invite link with your crew!
+                      <div className="bg-[#fbbf24]/20 p-2 rounded text-[9px]">
+                        Please share the invite link with your guests!
                       </div>
                     )}
 
@@ -290,7 +290,7 @@ export default function DetailsPage() {
                     </button>
                   </div>
                   {needsOvernight && (
-                    <div className="bg-[#f97316]/20 p-2 rounded text-[9px]">
+                    <div className="bg-[#fbbf24]/20 p-2 rounded text-[9px]">
                       We'll make sure there's space for you!
                     </div>
                   )}
@@ -327,7 +327,7 @@ export default function DetailsPage() {
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="Will you accept this invitation and ride at MotoGParty?"
+                  text="Will you be coming to MotoGParty?"
                   speed={35}
                   onComplete={advanceText}
                 />

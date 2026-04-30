@@ -57,18 +57,18 @@ export default function ThanksPage() {
     setTextIndex((prev) => prev + 1);
   }, []);
 
-  const displayName = invitee?.actual_name || guestName || "Rider";
+  const displayName = invitee?.actual_name || guestName || "Friend";
 
   if (!isVerified || !rsvpStatus) return null;
 
   const getThankYouText = () => {
     switch (rsvpStatus) {
       case "yes":
-        return `Hell yeah, ${displayName}! You're in! See you on the road!`;
+        return `Let's go, ${displayName}! So stoked you're coming!`;
       case "no":
-        return `We'll miss you, ${displayName}. Safe travels wherever the road takes you!`;
+        return `We'll miss you, ${displayName}. Hope to see you at the next one!`;
       case "maybe":
-        return `Noted, ${displayName}! Take your time. The road will wait!`;
+        return `No rush, ${displayName}! Let us know whenever you decide.`;
       default:
         return "";
     }
@@ -86,18 +86,18 @@ export default function ThanksPage() {
 
       {textIndex >= 1 && (
         <div className="pokemon-dialog p-4 space-y-3">
-          <p className="text-[10px] text-center mb-3">MOTO LOG:</p>
+          <p className="text-[10px] text-center mb-3">YOUR RSVP:</p>
 
           <div className="space-y-2 text-[10px]">
-            <div className="flex justify-between items-center border-b border-[#333333] pb-2">
-              <span className="text-[#9ca3af]">RSVP:</span>
+            <div className="flex justify-between items-center border-b border-[#d4d4d4] pb-2">
+              <span className="text-[#6b7280]">STATUS:</span>
               <span
                 className={
                   rsvpStatus === "yes"
                     ? "text-[#34d399]"
                     : rsvpStatus === "no"
                     ? "text-[#ef4444]"
-                    : "text-[#fbbf24]"
+                    : "text-[#f97316]"
                 }
               >
                 {rsvpStatus === "yes" && "YES!"}
@@ -107,32 +107,32 @@ export default function ThanksPage() {
             </div>
 
             {plusOne && (
-              <div className="flex justify-between items-center border-b border-[#333333] pb-2">
-                <span className="text-[#9ca3af]">RIDER:</span>
+              <div className="flex justify-between items-center border-b border-[#d4d4d4] pb-2">
+                <span className="text-[#6b7280]">GUEST:</span>
                 <span className="text-[#f97316]">{plusOneName || "YES"}</span>
               </div>
             )}
 
-            <div className="flex justify-between items-center border-b border-[#333333] pb-2">
-              <span className="text-[#9ca3af]">OVERNIGHT:</span>
+            <div className="flex justify-between items-center border-b border-[#d4d4d4] pb-2">
+              <span className="text-[#6b7280]">OVERNIGHT:</span>
               <span
-                className={needsOvernight ? "text-[#34d399]" : "text-[#9ca3af]"}
+                className={needsOvernight ? "text-[#34d399]" : "text-[#6b7280]"}
               >
                 {needsOvernight ? "YES" : "NO"}
               </span>
             </div>
 
             {additionalNotes && (
-              <div className="border-b border-[#333333] pb-2">
-                <span className="text-[#9ca3af]">NOTES:</span>
-                <p className="text-[#f97316] mt-1">{additionalNotes}</p>
+              <div className="border-b border-[#d4d4d4] pb-2">
+                <span className="text-[#6b7280]">NOTES:</span>
+                <p className="text-[#1a1a1a] mt-1">{additionalNotes}</p>
               </div>
             )}
 
             {submittedAt && (
               <div className="flex justify-between items-center">
-                <span className="text-[#9ca3af]">SAVED:</span>
-                <span className="text-[#9ca3af]">
+                <span className="text-[#6b7280]">SAVED:</span>
+                <span className="text-[#6b7280]">
                   {new Date(submittedAt).toLocaleDateString()}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function ThanksPage() {
 
       {textIndex >= 1 && (
         <div className="pokemon-dialog p-4 space-y-3">
-          <p className="text-[10px] text-center mb-3">THE RIDE:</p>
+          <p className="text-[10px] text-center mb-3">THE PARTY:</p>
           <div className="space-y-2 text-[10px]">
             <div className="flex items-center gap-2">
               <span>📅</span>
@@ -197,8 +197,8 @@ export default function ThanksPage() {
       )}
 
       {textIndex >= 1 && (
-        <p className="text-[8px] text-center text-[#9ca3af]">
-          See you on the road 🏍️
+        <p className="text-[8px] text-center text-[#6b7280]">
+          See you there 🏍️
         </p>
       )}
     </div>

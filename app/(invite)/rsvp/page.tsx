@@ -13,7 +13,7 @@ const RSVP_OPTIONS: {
   label: string;
   emoji: string;
 }[] = [
-  { value: "yes", label: "YES!", emoji: "🏍️" },
+  { value: "yes", label: "YES!", emoji: "🎉" },
   { value: "no", label: "NO...", emoji: "😢" },
   { value: "maybe", label: "MAYBE", emoji: "🤔" },
 ];
@@ -106,11 +106,11 @@ export default function RsvpPage() {
   const getResponseText = () => {
     switch (selected) {
       case "yes":
-        return "HELL YEAH! The road is calling and we can't wait to ride with you!";
+        return "YES! Can't wait to see you there — it's gonna be a great time!";
       case "no":
-        return "Bummer... we'll miss you on the road. Maybe next ride!";
+        return "Aw, bummer! We'll miss you. Hope to catch you at the next one!";
       case "maybe":
-        return "Still deciding? Take your time — the engine's running...";
+        return "No worries! Take your time and let us know when you decide.";
       default:
         return "";
     }
@@ -188,7 +188,7 @@ export default function RsvpPage() {
           {[...Array(20)].map((_, i) => (
             <div key={i} className="absolute text-3xl"
               style={{ left: `${(i * 17) % 100}%`, top: "-50px", animation: `fall ${1.5 + (i % 5) * 0.3}s linear forwards`, animationDelay: `${(i % 8) * 0.1}s` }}>
-              🏍️
+              😢
             </div>
           ))}
         </div>
@@ -199,7 +199,7 @@ export default function RsvpPage() {
           {!showResponse ? (
             <>
               <TypewriterText
-                text="The moment of truth! Will you ride with us at MotoGParty?"
+                text="The big question — are you coming to MotoGParty?"
                 speed={35}
                 onComplete={advanceText}
               />
@@ -220,7 +220,7 @@ export default function RsvpPage() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-[8px] text-center text-[#9ca3af]">
+                  <p className="text-[8px] text-center text-[#6b7280]">
                     (You can change your answer later)
                   </p>
                   <button
@@ -245,7 +245,7 @@ export default function RsvpPage() {
         {textIndex >= 1 && !showResponse && selected && (
           <div className="pokemon-dialog p-3 text-center">
             <p className="text-[10px]">
-              Selected: <span className="text-[#fbbf24]">{selected.toUpperCase()}</span>
+              Selected: <span className="text-[#f97316]">{selected.toUpperCase()}</span>
             </p>
           </div>
         )}

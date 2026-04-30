@@ -163,7 +163,7 @@ export default function AlcoholPage() {
           ) : (
             <div className="mt-4">
               {signups.length === 0 ? (
-                <p className="text-center text-sm text-[#9ca3af] mb-4">
+                <p className="text-center text-sm text-[#6b7280] mb-4">
                   No signups yet. Be the first!
                 </p>
               ) : (
@@ -171,12 +171,12 @@ export default function AlcoholPage() {
                   {signups.map((signup) => (
                     <div
                       key={signup.id}
-                      className="flex items-center justify-between bg-[#1e1e1e] border-2 border-[#f97316] rounded px-3 py-2"
+                      className="flex items-center justify-between bg-[#fef6e4] border-2 border-[#1a1a1a] rounded px-3 py-2"
                     >
                       <div className="flex-1 min-w-0">
-                        <span className="font-bold text-white">{signup.name}</span>
-                        <span className="mx-2 text-[#9ca3af]">-</span>
-                        <span className="text-[#9ca3af]">{signup.item}</span>
+                        <span className="font-bold text-[#1a1a1a]">{signup.name}</span>
+                        <span className="mx-2 text-[#6b7280]">-</span>
+                        <span className="text-[#6b7280]">{signup.item}</span>
                       </div>
                       <div className="flex gap-1 ml-2">
                         {deletingId === signup.id ? (

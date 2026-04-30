@@ -37,7 +37,7 @@ export default function GreetingPage() {
     invitee?.actual_name ||
     guestName ||
     name ||
-    "Rider";
+    "Friend";
 
   const handleContinue = () => {
     if (stage === "ask_name" && name.trim()) {
@@ -57,7 +57,7 @@ export default function GreetingPage() {
         {stage === "ask_name" && (
           <>
             <TypewriterText
-              text="Unknown rider detected... what's your name?"
+              text="Hmm, I don't recognize this number. What's your name?"
               speed={40}
               onComplete={advanceText}
             />
@@ -124,14 +124,14 @@ export default function GreetingPage() {
         {stage === "greeting" && (
           <>
             <TypewriterText
-              text={`${displayName}! Glad you made it to the garage!`}
+              text={`Hey ${displayName}! So glad you're coming!`}
               speed={40}
               onComplete={advanceText}
             />
             {textIndex >= 1 && (
               <div className="mt-4">
                 <TypewriterText
-                  text="You've been called to ride at MotoGParty!"
+                  text="You're invited to MotoGParty 🏍️"
                   speed={40}
                   onComplete={advanceText}
                 />
